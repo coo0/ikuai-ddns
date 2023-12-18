@@ -3,7 +3,7 @@ package main
 import (
 	"flag"
 	"fmt"
-	"github.com/coo0/ikuai-dynv6/api"
+	"github.com/coo0/ikuai-ddns/api"
 	"github.com/robfig/cron/v3"
 	"gopkg.in/yaml.v3"
 	"log"
