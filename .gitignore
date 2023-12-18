@@ -1,6 +1,6 @@
 /config.yml
-/ikuai-dynv6
-/ikuai-dynv6.exe
+/ikuai-ddns
+/ikuai-ddns.exe
 .idea
 .vscode
-/.gitignore
+.gitignore
