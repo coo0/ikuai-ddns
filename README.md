@@ -22,4 +22,5 @@ update-api: [https://dynv6.com/api/update]
 hostname: [[],[]]
 Token: []
 cron: 0 6 * * * # 执行更新的周期 crontab
+crondel: 0 6 * * * # 执行清空更新的ip周期 crontab
 ```
