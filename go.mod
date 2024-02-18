@@ -1,4 +1,4 @@
-module github.com/coo0/ikuai-ddns
+module ikuai-ddns
 
 go 1.20
 

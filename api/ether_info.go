@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"io"
 	"log"
+	"net"
 	"net/http"
-	"os"
 	"strings"
 	"time"
 )
@@ -53,19 +53,16 @@ func (i *IKuai) ShowEtherInfoByComment(url []string, hostname [][]string, token 
 		}
 	}
 	log.Println("外网ip：" + IpAddr)
-	filePath := "./ip_tmp/" + IpAddr
-	exists, err := fileExists(filePath)
+	checkUrl := "yloveh.dedyn.io"
+	ips, err := net.LookupIP(checkUrl)
+	urlIp := ""
 	if err != nil {
-		log.Printf("检查过程中发生错误: %v", err)
-	} else if exists {
-		log.Println("文件存在")
+		log.Println("无法查询到该checkUrl的IP地址")
 	} else {
-		file, err := os.Create(filePath)
-		if err != nil {
-			log.Println("创建文件时发生错误:", err)
-			return err
-		}
-		defer file.Close()
+		urlIp = ips[0].String()
+		log.Println("checkUrl的IP:" + urlIp)
+	}
+	if IpAddr != urlIp {
 		for i, u := range url {
 			token := token[i]
 			for _, hname := range hostname[i] {
@@ -108,17 +105,9 @@ func (i *IKuai) ShowEtherInfoByComment(url []string, hostname [][]string, token 
 			}
 			time.Sleep(time.Second * 1)
 		}
+
+	} else {
+		log.Println("外网ip与checkUrl的ip一致，无需更新")
 	}
 	return nil
-}
-
-func fileExists(path string) (bool, error) {
-	_, err := os.Stat(path)
-	if err == nil {
-		return true, nil // 文件存在且无错误
-	}
-	if errors.Is(err, os.ErrNotExist) {
-		return false, nil // 文件不存在
-	}
-	return false, err // 其他错误（比如权限问题）
 }
